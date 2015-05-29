@@ -10,7 +10,8 @@ import java.util.concurrent.locks.StampedLock;
  */
 public class DataHandler implements Runnable {
 
-    private static final int THREAD_NUMBER = Runtime.getRuntime().availableProcessors() * 2 + 1;
+    public static final int THREAD_NUMBER = Runtime.getRuntime().availableProcessors() * 2 + 1;
+
     private static final BlockingQueue<MessageObject> queue = new LinkedBlockingQueue<>();
     private static final ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();     // 用来模拟新老访客
 
@@ -19,6 +20,10 @@ public class DataHandler implements Runnable {
 
     public static MessageObject take() throws InterruptedException {
         return queue.take();
+    }
+
+    public static boolean isEmpty() {
+        return queue.isEmpty();
     }
 
     public void create() {
