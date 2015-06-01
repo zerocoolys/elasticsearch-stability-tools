@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by dolphineor on 2015-5-28.
  */
-public class ESDataGeneratorMain {
+public class EsDataGeneratorMain {
 
     public static void main(String[] args) {
 //        int bulk = Integer.valueOf(args[0]);
