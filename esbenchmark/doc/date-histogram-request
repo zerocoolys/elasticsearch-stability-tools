@@ -1,0 +1,29 @@
+{
+  "index": "visitor-2015-06-01",
+  "type": "1",
+  "body": {
+    "query": {"bool": {"must": []}},
+    "size": 0,
+    "aggs": {
+      "result": {
+        "date_histogram": {
+          "field": "utime",
+          "interval": "1h",
+          "format": "HH",
+          "pre_zone": "+08:00",
+          "post_zone": "+08:00",
+          "order": {"_key": "asc"},
+          "min_doc_count": 0,
+          "extended_bounds": {
+            "min": 1433088000000,
+            "max": 1433174399999
+          }
+        },
+        "aggs": {
+          "pv_aggs": {"sum": {"script": "c=0; c+=doc['loc'].values.size(); c"}},
+          "uv_aggs": {"cardinality": {"field": "_ucv"}}
+        }
+      }
+    }
+  }
+}

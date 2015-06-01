@@ -1,0 +1,67 @@
+// 来源分析中外部链接es查询(最近7天PC流量统计, 指标:PV-UV-新访客数-新访客比率-跳出率-平均访问页数)
+{
+  "index": "visitor-2015-05-26,visitor-2015-05-27,visitor-2015-05-28,visitor-2015-05-29,visitor-2015-05-30,visitor-2015-05-31,visitor-2015-06-01",
+  "type": "1",
+  "body": {
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "terms": {
+              "rf_type": [
+                "3"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "size": 0,
+    "aggs": {
+      "result": {
+        "terms": {
+          "script": "doc['rf'].value"
+        },
+        "aggs": {
+          "uv_aggs": {
+            "cardinality": {
+              "field": "_ucv"
+            }
+          },
+          "new_visitor_aggs": {
+            "sum": {
+              "script": "c = 0; if (doc['ct'].value == 0) { c = 1 }; c"
+            }
+          },
+          "single_visitor_aggs": {
+            "filter": {
+              "script": {
+                "script": "doc['loc'].values.size() == param1",
+                "params": {
+                  "param1": 1
+                }
+              }
+            },
+            "aggs": {
+              "svc_aggs": {
+                "sum": {
+                  "script": "1"
+                }
+              }
+            }
+          },
+          "vc_aggs": {
+            "sum": {
+              "script": "1"
+            }
+          },
+          "pv_aggs": {
+            "sum": {
+              "script": "c=0; c+=doc['loc'].values.size(); c"
+            }
+          }
+        }
+      }
+    }
+  }
+}

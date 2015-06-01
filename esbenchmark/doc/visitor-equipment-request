@@ -1,0 +1,70 @@
+// 访客分析中设备环境es查询(最近30天PC流量统计, 指标:访问次数-新访客比率-IP数-跳出率-平均访问时长-平均访问页数)
+{
+  "index": "visitor-2015-05-03,visitor-2015-05-04,visitor-2015-05-05,visitor-2015-05-06,visitor-2015-05-07,visitor-2015-05-08,visitor-2015-05-09,visitor-2015-05-10,visitor-2015-05-11,visitor-2015-05-12,visitor-2015-05-13,visitor-2015-05-14,visitor-2015-05-15,visitor-2015-05-16,visitor-2015-05-17,visitor-2015-05-18,visitor-2015-05-19,visitor-2015-05-20,visitor-2015-05-21,visitor-2015-05-22,visitor-2015-05-23,visitor-2015-05-24,visitor-2015-05-25,visitor-2015-05-26,visitor-2015-05-27,visitor-2015-05-28,visitor-2015-05-29,visitor-2015-05-30,visitor-2015-05-31,visitor-2015-06-01",
+  "type": "1",
+  "body": {
+    "query": {
+      "bool": {
+        "must": [
+        ]
+      }
+    },
+    "size": 0,
+    "aggs": {
+      "result": {
+        "terms": {
+          "script": "doc['isp'].value"
+        },
+        "aggs": {
+          "ip_aggs": {
+            "cardinality": {
+              "field": "remote"
+            }
+          },
+          "single_visitor_aggs": {
+            "filter": {
+              "script": {
+                "script": "doc['loc'].values.size() == param1",
+                "params": {
+                  "param1": 1
+                }
+              }
+            },
+            "aggs": {
+              "svc_aggs": {
+                "sum": {
+                  "script": "1"
+                }
+              }
+            }
+          },
+          "vc_aggs": {
+            "sum": {
+              "script": "1"
+            }
+          },
+          "tvt_aggs": {
+            "sum": {
+              "script": "sum_time = 0; len = doc['utime'].values.size() - 1; if (len > 0) { sum_time = doc['utime'].values[len] - doc['utime'].values[0] }; sum_time"
+            }
+          },
+          "pv_aggs": {
+            "value_count": {
+              "field": "loc"
+            }
+          },
+          "new_visitor_aggs": {
+            "sum": {
+              "script": "c = 0; if (doc['ct'].value == 0) { c = 1 }; c"
+            }
+          },
+          "uv_aggs": {
+            "cardinality": {
+              "field": "_ucv"
+            }
+          }
+        }
+      }
+    }
+  }
+}
