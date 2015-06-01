@@ -1,0 +1,1 @@
+{ "query" : { "range" : { "logTime" : { "from" : 1368080138350, "to" : 1368085138350 } } }, "size" : 0, "facets" : { "projectName" : { "terms" : { "field" : "projectName"} }, "logLevel" : { "terms" : { "field" : "logLevel"} }, "host" : { "terms" : { "field" : "host" } } } }

@@ -1,0 +1,33 @@
+{
+	"query" : {
+	    "filtered":{
+	    	"filter":{
+	    		"range" : {
+					"logTime" : {
+						"from" : 0,
+						"to" : 1368085138350
+					}
+				}
+			}
+	    }
+	},
+	"size" : 0,
+	"facets" : {
+		"projectName" : {
+			"terms" : {
+				"field" : "projectName",
+				"all_terms" : true
+			}
+		},
+      "logLevel" : {
+			"terms" : {
+				"field" : "logLevel"
+			}
+		},
+      "host" : {
+			"terms" : {
+				"field" : "host"
+			}
+		}
+	}
+}

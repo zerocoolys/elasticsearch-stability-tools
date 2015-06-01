@@ -1,0 +1,67 @@
+<script type="text/javascript">
+	$(function () {
+	        $('#%id%').highcharts({
+	            chart: {
+	                zoomType: 'x',
+	                spacingRight: 20
+	            },
+	            title: {
+	                text: '%title%'
+	            },
+	            subtitle: {
+	                text: document.ontouchstart === undefined ?
+	                    'Click and drag in the plot area to zoom in' :
+	                    'Drag your finger over the plot to zoom in'
+	            },
+	            xAxis: {
+	                tickInterval: 1,
+	                title: {
+	                    text: ''
+	                },
+			        min:0,
+			        tickLength: 0,
+			        labels: {
+		                step: %xstep%
+		            }
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '%yTitle%'
+	                },
+			                min: 0
+	            },
+	            tooltip: {
+	                shared: true
+	            },
+	            legend: {
+	                enabled: false
+	            },
+	            plotOptions: {
+	                area: {
+	                    fillColor: {
+	                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+	                        stops: [
+	                            [0, Highcharts.getOptions().colors[0]],
+	                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+	                        ]
+	                    },
+	                    lineWidth: 1,
+	                    marker: {
+	                        enabled: false
+	                    },
+	                    shadow: false,
+	                    states: {
+	                        hover: {
+	                            lineWidth: 1
+	                        }
+	                    },
+	                    threshold: null
+	                }
+	            },
+	    
+	            series: [{ type: 'area', name: '%series%', pointInterval: 1, pointStart: 0, data: %model_data% }]
+	        });
+	    });
+</script>
+
+%module%
