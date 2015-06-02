@@ -39,7 +39,7 @@ public class DataHandler {
     }
 
     public void offer(String name, MessageObject mo) {
-        System.out.println(name + "---offer---" + queue.size());
+//        System.out.println(name + "---offer---" + queue.size());
         queue.offer(mo);
     }
 

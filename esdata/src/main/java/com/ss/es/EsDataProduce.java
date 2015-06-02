@@ -11,16 +11,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.locks.StampedLock;
 
 /**
  * Created by hydm on 2015/6/1.
  */
 public class EsDataProduce implements Constants {
 
-    public static final int THREAD_NUMBER = Runtime.getRuntime().availableProcessors() * 2 + 1;
-
-    private final StampedLock sLock = new StampedLock();
+    public static final int THREAD_NUMBER = 2;
 
     private final ExecutorService executor;
 
@@ -46,41 +43,36 @@ public class EsDataProduce implements Constants {
     }
 
     public void create() {
-        long stamp = sLock.writeLock();
         if (handler.mapIsEmpty()) {
             handler.initVisitorMap(RandomDataReader.getIndexInfo(indexes));
         }
 
-        try {
-            MessageObject mo = new MessageObject();
-            String temp = handler.removeMap();
-            mo.add(ES_INDEX, temp.substring(8));
-            mo.add(ES_CT, temp.substring(0, 1));
+        MessageObject mo = new MessageObject();
+        String temp = handler.removeMap();
+        mo.add(ES_INDEX, temp.substring(8));
+        mo.add(ES_CT, temp.substring(0, 1));
 
-            Map<String, Object> source = new HashMap<>();
-            source.putAll(RandomDataReader.getIpInfo());
-            source.forEach(mo::add);
-            // 其它属性值数据设置
+        Map<String, Object> source = new HashMap<>();
+        source.putAll(RandomDataReader.getIpInfo());
+        source.forEach(mo::add);
+        // 其它属性值数据设置
 
-            Map<String, Object> loc = new HashMap<>();
-            loc.putAll(RandomDataReader.getLocInfo(mo.get(ES_INDEX)));
-            loc.forEach(mo::add);
+        Map<String, Object> loc = new HashMap<>();
+        loc.putAll(RandomDataReader.getLocInfo(mo.get(ES_INDEX)));
+        loc.forEach(mo::add);
 
-            Map<String, String> os = new HashMap<>();
-            os.putAll(RandomDataReader.getOSInfo());
-            os.forEach(mo::add);
+        Map<String, String> os = new HashMap<>();
+        os.putAll(RandomDataReader.getOSInfo());
+        os.forEach(mo::add);
 
-            Map<String, String> pm = new HashMap<>();
-            pm.putAll(RandomDataReader.getPMInfo());
-            pm.forEach(mo::add);
+        Map<String, String> pm = new HashMap<>();
+        pm.putAll(RandomDataReader.getPMInfo());
+        pm.forEach(mo::add);
 
-            Map<String, Object> rfType = new HashMap<>();
-            rfType.putAll(RandomDataReader.getRfTypeInfo());
-            rfType.forEach(mo::add);
-            handler.offer(Thread.currentThread().getName(), mo);
-        } finally {
-            sLock.unlockWrite(stamp);
-        }
+        Map<String, Object> rfType = new HashMap<>();
+        rfType.putAll(RandomDataReader.getRfTypeInfo());
+        rfType.forEach(mo::add);
+        handler.offer(Thread.currentThread().getName(), mo);
     }
 
     public void shutdown() {

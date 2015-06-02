@@ -22,19 +22,17 @@ public class EsDataGeneratorMain {
         int endOffset = Integer.valueOf(args[2]);
         List<String> indexes = IndexGenerator.createIndexes(startOffset, endOffset);
 
-        List<DataHandler> handlers = new ArrayList<>();
-        List<EsDataProduce> produces = new ArrayList<>();
+        List<EsDataProduce> producers = new ArrayList<>();
         List<EsDataWriter> writers = new ArrayList<>();
 
         EsPools.getEsClient().forEach(client -> {
             DataHandler handler = new DataHandler(bulk);
-            handlers.add(handler);
-            produces.add(new EsDataProduce(indexes, handler));
+            producers.add(new EsDataProduce(indexes, handler));
             writers.add(new EsDataWriter(client, handler));
         });
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            produces.forEach(EsDataProduce::shutdown);
+            producers.forEach(EsDataProduce::shutdown);
             writers.forEach(EsDataWriter::shutdown);
         }));
 
