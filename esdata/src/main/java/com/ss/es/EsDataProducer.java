@@ -5,27 +5,24 @@ import com.ss.core.DataHandler;
 import com.ss.core.MessageObject;
 import com.ss.core.RandomDataReader;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * Created by hydm on 2015/6/1.
  */
-public class EsDataProduce implements Constants {
+public class EsDataProducer implements Constants {
 
-    public static final int THREAD_NUMBER = 2;
+    private static final int THREAD_NUMBER = 2;
+    private static final List<Integer> CT_LIST = new ArrayList<>(Arrays.asList(0, 1));
+
 
     private final ExecutorService executor;
-
     private List<String> indexes;
-
     private DataHandler handler;
 
-    public EsDataProduce(List<String> indexes, DataHandler handler) {
+    public EsDataProducer(List<String> indexes, DataHandler handler) {
         this.indexes = indexes;
         this.handler = handler;
         this.executor = Executors.newFixedThreadPool(THREAD_NUMBER);
@@ -49,8 +46,8 @@ public class EsDataProduce implements Constants {
 
         MessageObject mo = new MessageObject();
         String temp = handler.removeMap();
-        mo.add(ES_INDEX, temp.substring(8));
-        mo.add(ES_CT, temp.substring(0, 1));
+        mo.add(ES_INDEX, "visitor-2015-06-03");
+        mo.add(ES_CT, new Random().nextInt(1));
 
         Map<String, Object> source = new HashMap<>();
         source.putAll(RandomDataReader.getIpInfo());

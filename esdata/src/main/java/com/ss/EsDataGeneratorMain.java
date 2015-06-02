@@ -1,7 +1,7 @@
 package com.ss;
 
 import com.ss.core.DataHandler;
-import com.ss.es.EsDataProduce;
+import com.ss.es.EsDataProducer;
 import com.ss.es.EsDataWriter;
 import com.ss.es.EsPools;
 import com.ss.es.IndexGenerator;
@@ -22,19 +22,27 @@ public class EsDataGeneratorMain {
         int endOffset = Integer.valueOf(args[2]);
         List<String> indexes = IndexGenerator.createIndexes(startOffset, endOffset);
 
-        List<EsDataProduce> producers = new ArrayList<>();
+        List<EsDataProducer> producers = new ArrayList<>();
         List<EsDataWriter> writers = new ArrayList<>();
 
         EsPools.getEsClient().forEach(client -> {
             DataHandler handler = new DataHandler(bulk);
-            producers.add(new EsDataProduce(indexes, handler));
+            producers.add(new EsDataProducer(indexes, handler));
             writers.add(new EsDataWriter(client, handler));
         });
 
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            producers.forEach(EsDataProduce::shutdown);
+            producers.forEach(EsDataProducer::shutdown);
             writers.forEach(EsDataWriter::shutdown);
         }));
+
+
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         System.exit(0);
     }

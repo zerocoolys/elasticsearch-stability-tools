@@ -70,17 +70,24 @@ public class EsDataWriter implements Constants {
 
 
                     if (handler.queueIsEmpty() && bulkRequestBuilder.numberOfActions() > 0) {
-                        bulkRequestBuilder.execute().addListener(new BulkRequestActionListener());
+                        submitRequest(bulkRequestBuilder);
                         bulkRequestBuilder = client.prepareBulk();
                         continue;
                     }
 
                     if (bulkRequestBuilder.numberOfActions() == EsPools.getBulkRequestNumber()) {
-                        bulkRequestBuilder.execute().addListener(new BulkRequestActionListener());
+                        submitRequest(bulkRequestBuilder);
                         bulkRequestBuilder = client.prepareBulk();
                     }
                 }
             });
+        }
+    }
+
+    private void submitRequest(BulkRequestBuilder bulkRequestBuilder) {
+        BulkResponse responses = bulkRequestBuilder.get();
+        if (responses.hasFailures()) {
+            System.out.println("Failure: " + responses.buildFailureMessage());
         }
     }
 
