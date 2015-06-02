@@ -1,0 +1,42 @@
+//访客分析  设备环境  网络供应商  表格elasticsearch查询
+{
+  "index": "visitor-2015-06-01",
+  "type": "1",
+  "body": {
+    "query": {"bool": {"must": []}},
+    "size": 0,
+    "aggs": {
+      "result": {
+        "terms": {"script": "doc['isp'].value"},
+        "aggs": {
+          "uv_aggs": {
+            "cardinality": {"field": "_ucv"}
+          },
+          "ip_aggs": {
+            "cardinality": {"field": "remote"}
+          },
+          "single_visitor_aggs": {
+            "filter": {
+              "script": {
+                "script": "doc['loc'].values.size() == param1",
+                "params": {"param1": 1}
+              }
+            },
+            "aggs": {
+              "svc_aggs": {"sum": {"script": "1"}}
+            }
+          },
+          "vc_aggs": {
+            "sum": {"script": "1"}
+          },
+          "tvt_aggs": {
+            "sum": {"script": "sum_time = 0; len = doc['utime'].values.size() - 1; if (len > 0) { sum_time = doc['utime'].values[len] - doc['utime'].values[0] }; sum_time"}
+          },
+          "new_visitor_aggs": {
+            "sum": {"script": "c = 0; if (doc['ct'].value == 0) { c = 1 }; c"}
+          }
+        }
+      }
+    }
+  }
+}

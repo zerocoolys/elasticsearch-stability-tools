@@ -1,0 +1,58 @@
+{
+    "filter": {
+        "range": {
+            "logTime": {
+                "from": 0,
+                "to": 999967980201000000
+            }
+        }
+    },
+    "query": {
+        "filtered": {
+            "query": {
+                "query_string": {
+                    "query": "logLevel:\"WARNING\"",
+                    "default_operator": "AND"
+                }
+            }
+        }
+    },
+    "highlight": {
+        "fields": {
+            "body": {},
+            "projectName": {},
+            "projectVersion": {},
+            "logType": {},
+            "logSource": {},
+            "host": {},
+            "logLevel": {},
+            "PID": {},
+            "appName": {},
+            "facility": {},
+            "severity": {},
+            "ClientIP": {},
+            "Cookie": {},
+            "ErrorLocation": {},
+            "Exception": {},
+            "FormData": {},
+            "Message": {},
+            "RemoteIP": {},
+            "RequestHeader": {},
+            "URL": {},
+            "UserID": {},
+            "Comment": {},
+            "Location": {},
+            "CustomMessage": {},
+            "errorCode": {}
+        },
+        "require_field_match": true,
+        "number_of_fragments": 0,
+        "encoder": "html"
+    },
+    "size": "10",
+    "sort": {
+        "logTime": {
+            "order": "desc"
+        }
+    }
+}

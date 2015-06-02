@@ -1,0 +1,50 @@
+{
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "terms": {
+              "pm": [
+                0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "size": 0,
+    "aggs": {
+      "result": {
+        "terms": {
+          "script": "doc['kw'].value"
+        },
+        "aggs": {
+          "pv_aggs": {
+            "value_count": {
+              "field": "loc"
+            }
+          },
+          "vc_aggs": {
+            "sum": {
+              "script": "1"
+            }
+          },
+          "new_visitor_aggs": {
+            "sum": {
+              "script": "c = 0; if (doc['ct'].value == 0) { c = 1 }; c"
+            }
+          },
+          "ip_aggs": {
+            "cardinality": {
+              "field": "remote"
+            }
+          },
+          "tvt_aggs": {
+            "sum": {
+              "script": "sum_time = 0; len = doc['utime'].values.size() - 1; if (len > 0) { sum_time = doc['utime'].values[len] - doc['utime'].values[0] }; sum_time"
+            }
+          }
+        }
+      }
+  }
+}

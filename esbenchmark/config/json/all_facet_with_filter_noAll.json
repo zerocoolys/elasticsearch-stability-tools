@@ -1,0 +1,52 @@
+{
+	"filter" : {
+		"range" : {
+			"logTime" : {
+				"from" : 0,
+				"to" : 1368085138350
+			}
+		}
+	},
+	"size" : 0,
+	"facets" : {
+		"projectName" : {
+			"terms" : {
+				"field" : "projectName"
+			},
+			"facet_filter" : {
+				"range" : {
+					"logTime" : {
+						"from" : 0,
+						"to" : 1368085138350
+					}
+				}
+			}
+		},
+      "logLevel" : {
+			"terms" : {
+				"field" : "logLevel"
+			},
+			"facet_filter" : {
+				"range" : {
+					"logTime" : {
+						"from" : 0,
+						"to" : 1368085138350
+					}
+				}
+			}
+		},
+      "host" : {
+			"terms" : {
+				"field" : "host"
+			},
+			"facet_filter" : {
+				"range" : {
+					"logTime" : {
+						"from" : 0,
+						"to" : 1368085138350
+					}
+				}
+			}
+		}
+	}
+}

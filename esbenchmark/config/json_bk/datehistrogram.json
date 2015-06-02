@@ -1,0 +1,28 @@
+{
+    "filter": {
+        "range": {
+            "logTime": {
+                "from": 0,
+                "to": 1378071989562
+            }
+        }
+    },
+    "size": 0,
+    "facets": {
+        "logTime": {
+            "date_histogram": {
+                "name": "logTime",
+                "field": "logTime",
+                "interval": "0.5m"
+            },
+            "facet_filter": {
+                "range": {
+                    "logTime": {
+                        "from": 1367902800000,
+                        "to": 1367906399000
+                    }
+                }
+            }
+        }
+    }
+}
