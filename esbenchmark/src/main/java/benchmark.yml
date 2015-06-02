@@ -3,76 +3,45 @@ debug: true
 query.count: 50
 warnup.count: 5
 
-cluster.name: ['elasticsearch']
-hosts: ['192.168.1.113:9300']
-
 
 size: '2m'
 matchsize: false
 
-jvmmonitor.interval: 200 
+jvmmonitor.interval: 200
 
-indexs: ['nelo2-log-2013-05-09']
-
-accessIndex: access-2015-05-30
-
-############################ data index benchmark config ############################
-index.enable: false
-index.bulk: true
-index.name: 'benchmark'
-index.batch: 500
-index.log.levels: ['DEBUG','INFO','ERROR','FATAL','WARNING']
-index.project.size: 1200
-index.body.size: 1000
-index.host.size: 5000
-index.word.size: 10000
-
-index.app.size: 4000
-index.app.name.size: 10
-index.delete: 'true'
-
-index.logtime.start: 0
-index.logtime.end: 3.6m
-
-############################ terms facet query benchmark config ############################
-#termsfacet.query.count: 200
-#termsfacet.warnup.count: 20
-#termsfacet.fields: ['projectName']
-termsfacet.fields: ['projectName','logLevel','host']
-# termsfacet.executionHint: 'map'
-
-############################ histogram facet query benchmark config ############################
-#histogramfacet.fields: ['logTime']
-# array or value both ok, 
-# [1000,'day'] or 'day' or 1000
-#histogramfacet.interval: [1000]
-
-############################ query filter facet ############################
-queryfilterfacet.files: ['filter_logTime_range','query_logTime_range','all_facet_with_query','all_facet_with_filter','all_facet_with_query_noAll','all_facet_with_filter_noAll','all_facet_with_filtered']
-# queryfilterfacet.fields: ['logTime','projectName']
-
-# each queryfilterfacet can have 3 type : query, filter, facet_filter
-# 	to match the fields , must follow the order of "fields"
-# queryfilterfacet.types: ['query','filter']
-
-# property match the field , only suppor range and terms
-# queryfilterfacet.logTime.type: range
-# queryfilterfacet.logTime.range.from: 0
-# queryfilterfacet.logTime.range.to: 0
-
-# queryfilterfacet.projectName.type: terms
-# queryfilterfacet.projectName.values:['test1','test2']
-
-############################# histogram facet search ##############################
-#histogramfacetsearch.files: ['datehistrogram']
+cluster.name: es-cluster
+ip: 182.92.227.79
+port: 19300
 
 
-############################# highlight function #################################
-#highlightsearch.files: ['highlight']
+DateHistogramRequest.indexs: ['visitor-2015-06-01']
+DateHistogramRequest.types: ['1']
+
+
+SearchEquipmentRequest.indexs: ['visitor-2015-06-01']
+SearchEquipmentRequest.types: ['1']
+
+
+Search30daysRequest.indexs: ['visitor-2015-05-03','visitor-2015-05-04','visitor-2015-05-05','visitor-2015-05-06','visitor-2015-05-07','visitor-2015-05-08','visitor-2015-05-09','visitor-2015-05-10','visitor-2015-05-12','visitor-2015-05-13','visitor-2015-05-14','visitor-2015-05-15','visitor-2015-05-16','visitor-2015-05-17','visitor-2015-05-18','visitor-2015-05-19','visitor-2015-05-20','visitor-2015-05-21','visitor-2015-05-22','visitor-2015-05-23','visitor-2015-05-24','visitor-2015-05-25','visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01','visitor-2015-05-11']
+Search30daysRequest.types: ['1']
+
+
+SearchEntrancepageRequest.indexs: ['visitor-2015-05-03','visitor-2015-05-04','visitor-2015-05-05','visitor-2015-05-06','visitor-2015-05-07','visitor-2015-05-08','visitor-2015-05-09','visitor-2015-05-10','visitor-2015-05-12','visitor-2015-05-13','visitor-2015-05-14','visitor-2015-05-15','visitor-2015-05-16','visitor-2015-05-17','visitor-2015-05-18','visitor-2015-05-19','visitor-2015-05-20','visitor-2015-05-21','visitor-2015-05-22','visitor-2015-05-23','visitor-2015-05-24','visitor-2015-05-25','visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01','visitor-2015-05-11']
+SearchEntrancepageRequest.types: ['1']
+
+
+SearchWordRequest.indexs: ['visitor-2015-05-03','visitor-2015-05-04','visitor-2015-05-05','visitor-2015-05-06','visitor-2015-05-07','visitor-2015-05-08','visitor-2015-05-09','visitor-2015-05-10','visitor-2015-05-12','visitor-2015-05-13','visitor-2015-05-14','visitor-2015-05-15','visitor-2015-05-16','visitor-2015-05-17','visitor-2015-05-18','visitor-2015-05-19','visitor-2015-05-20','visitor-2015-05-21','visitor-2015-05-22','visitor-2015-05-23','visitor-2015-05-24','visitor-2015-05-25','visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01','visitor-2015-05-11']
+SearchWordRequest.types: ['1']
+
+
+SourceExternallinksRequest.indexs: ['visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01']
+SourceExternallinksRequest.types: ['1']
+
+
+VisitorEquipmentRequest.indexs: ['visitor-2015-05-03','visitor-2015-05-04','visitor-2015-05-05','visitor-2015-05-06','visitor-2015-05-07','visitor-2015-05-08','visitor-2015-05-09','visitor-2015-05-10','visitor-2015-05-12','visitor-2015-05-13','visitor-2015-05-14','visitor-2015-05-15','visitor-2015-05-16','visitor-2015-05-17','visitor-2015-05-18','visitor-2015-05-19','visitor-2015-05-20','visitor-2015-05-21','visitor-2015-05-22','visitor-2015-05-23','visitor-2015-05-24','visitor-2015-05-25','visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01','visitor-2015-05-11']
+VisitorEquipmentRequest.types: ['1']
 
 
 
-############################# termsrangefacet ##################################
-termsrangefacet.from: 1368080138350
-termsrangefacet.to: 1368085138350
-termsrangefacet.step: 1000
+AccessRequest.indexs: ['access-2015-05-30']
+AccessRequest.types: ['1','2']

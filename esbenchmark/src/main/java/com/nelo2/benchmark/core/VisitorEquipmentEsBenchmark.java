@@ -16,26 +16,15 @@ public class VisitorEquipmentEsBenchmark extends AbstractEsBenchmark {
 		Client client = CommonUtils.getClient();
 
 		// 索引
-		String[] indexs = new String[] { "visitor-2015-05-03",
-				"visitor-2015-05-04", "visitor-2015-05-05",
-				"visitor-2015-05-06", "visitor-2015-05-07",
-				"visitor-2015-05-08", "visitor-2015-05-09",
-				"visitor-2015-05-10", "visitor-2015-05-11",
-				"visitor-2015-05-12", "visitor-2015-05-13",
-				"visitor-2015-05-14", "visitor-2015-05-15",
-				"visitor-2015-05-16", "visitor-2015-05-17",
-				"visitor-2015-05-18", "visitor-2015-05-19",
-				"visitor-2015-05-20", "visitor-2015-05-21",
-				"visitor-2015-05-22", "visitor-2015-05-23",
-				"visitor-2015-05-24", "visitor-2015-05-25",
-				"visitor-2015-05-26", "visitor-2015-05-27",
-				"visitor-2015-05-28", "visitor-2015-05-29",
-				"visitor-2015-05-30", "visitor-2015-05-31",
-				"visitor-2015-06-01" };
+		String[] indexs = CommonUtils.getSetting().getAsArray(
+				this.name() + ".indexs");
 		// 类型
-		String[] types = new String[] { "1" };
+		String[] types = CommonUtils.getSetting().getAsArray(
+				this.name() + ".types");
 		// 过滤
-		String source = TemplateFile.readFile("./doc/visitor-equipment-request");
+		String source = TemplateFile.readFile(CommonUtils.getDoc_path()
+				+ this.name() + ".json");
+
 		for (int j = 0; j < QUERY_COUNT; j++) {
 
 			client.admin().indices().prepareClearCache()
@@ -49,22 +38,18 @@ public class VisitorEquipmentEsBenchmark extends AbstractEsBenchmark {
 		}
 
 		stopWatch.stop().lastTaskTime();
-		System.out.println("Indexing took "
-				+ stopWatch.totalTime()
-				+ ", TPS "
-				+ (((double) (QUERY_COUNT)) / stopWatch.totalTime()
-						.secondsFrac()));
+		System.out.println("Indexing took " + stopWatch.totalTime() + ", TPS "
+				+ (stopWatch.totalTime().secondsFrac())
+				/ ((double) (QUERY_COUNT)));
 
-		return praseHtml(
-				source,
-				QUERY_COUNT,
-				stopWatch.totalTime().toString(),
-				(((double) (QUERY_COUNT)) / stopWatch.totalTime().secondsFrac()));
+		return praseHtml(source, QUERY_COUNT, stopWatch.totalTime().toString(),
+				(stopWatch.totalTime().secondsFrac())
+						/ ((double) (QUERY_COUNT)));
 	}
 
 	@Override
 	public String name() {
-		return "VisitorEquipmentEsBenchmark";
+		return "VisitorEquipmentRequest";
 	}
 
 }
