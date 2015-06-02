@@ -18,13 +18,11 @@ public class RandomDataReader implements Constants {
     private static List<String> ipLines = null;
 
     /**
-     * ��ȡIP��Ϣ
-     * ES_REMOTE��ip��ַ
-     * ES_REGION��ʡ
-     * ES_CITY������
-     * ES_ISP����Ӫ��
-     *
-     * @return
+     * 获取ip信息
+     * ES_REMOTE
+     * ES_REGION
+     * ES_CITY
+     * ES_ISP
      */
     public static Map<String, String> getIpInfo() {
         if (ipLines == null) {
@@ -50,7 +48,7 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * ��ȡҳ���Լ�ͣ��ʱ��
+     * 获取loc以及utime信息
      */
     public static Map<String, Object> getLocInfo(Object accessIndex) {
         Map<String, Object> map = new HashMap<>();
@@ -85,21 +83,21 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * ��ȡrf_type
+     * 获取rf_type信息
      */
     public static Map<String, Object> getRfTypeInfo() {
         Map<String, Object> rf = new HashMap<>();
         int rfType = RANDOM.nextInt(3) + 1;
 
-        if (rfType == 1) {// ֱ�ӷ���
+        if (rfType == 1) {// 直接访问
             rf.put(ES_RF_TYPE, rfType);
             rf.put(ES_RF, "-");
             rf.put(ES_SE, "-");
-        } else if (rfType == 2) {// ��������
+        } else if (rfType == 2) {// 搜索引擎
             rf.put(ES_RF_TYPE, rfType);
             rf.put(ES_SE, SEARCH_ENGINE_DATA.get(RANDOM.nextInt(SEARCH_ENGINE_DATA.size() - 1)));
             rf.put(ES_KW, SEARCH_KW_DATA.get(RANDOM.nextInt(SEARCH_KW_DATA.size() - 1)));
-        } else {// �ⲿ����
+        } else {// 外部链接
             rf.put(ES_RF_TYPE, rfType);
             rf.put(ES_DOMAIN, ENTRANCE_PAGE.get(0));
             rf.put(ES_ENTRANCE, ENTRANCE_PAGE.get(0));
@@ -108,7 +106,7 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * ��ȡ����ϵͳ
+     * 获取OS信息
      */
     public static Map<String, String> getOSInfo() {
         Map<String, String> os = new HashMap<>();
@@ -117,7 +115,7 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * ��ȡ�����ն�
+     * 获取PM信息
      */
     public static Map<String, String> getPMInfo() {
         Map<String, String> map = new HashMap<>();
@@ -126,10 +124,10 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * ��ȡ_INDEX
+     * 获取_INDEX信息
      */
-    public static String getIndexInfo() {
-        return INDEX_VIEW.get(RANDOM.nextInt(INDEX_VIEW.size()));
+    public static String getIndexInfo(List<String> indexes) {
+        return indexes.get(RANDOM.nextInt(indexes.size()));
     }
 
 }
