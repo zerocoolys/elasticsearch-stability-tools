@@ -2,9 +2,8 @@
 
 ## 数据写入
 
-分支名 **es-ant**
-
+目录名 **esdata**
 
 ## 性能测试
 
-分支名 **es-queen**
+目录名 **esbenchmark**
