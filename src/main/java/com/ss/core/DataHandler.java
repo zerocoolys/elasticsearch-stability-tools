@@ -4,32 +4,35 @@ import com.ss.tools.ArrayUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.StampedLock;
 
-import static com.ss.core.Constants.CT_INIT_LENGTH;
-import static com.ss.core.Constants.ES_INDEX;
+import static com.ss.core.Constants.*;
 import static com.ss.core.RandomDataReader.getIndexInfo;
 
 /**
  * Created by dolphineor on 2015-5-28.
  */
-public class DataHandler implements Runnable {
+public class DataHandler {
 
     public static final int THREAD_NUMBER = Runtime.getRuntime().availableProcessors() * 2 + 1;
 
-    private static final BlockingQueue<MessageObject> queue = new LinkedBlockingQueue<>();
-    private static final ConcurrentHashMap<Integer, String> map = new ConcurrentHashMap<>();     // 用来模拟新老访客
-
+    private final BlockingQueue<MessageObject> queue = new LinkedBlockingQueue<>();
+    private final ConcurrentHashMap<Integer, String> map = new ConcurrentHashMap<>();     // 用来模拟新老访客
     private final StampedLock sLock = new StampedLock();
+    private final ExecutorService executor;
 
-    private final StampedLock ssLock = new StampedLock();
+    public DataHandler() {
+        this.executor = Executors.newFixedThreadPool(THREAD_NUMBER);
+        run();
+    }
 
-    public static MessageObject take() throws InterruptedException {
+    public MessageObject take() throws InterruptedException {
         return queue.take();
     }
 
-    public static boolean isEmpty() {
+    public boolean queueIsEmpty() {
         return queue.isEmpty();
     }
 
@@ -46,6 +49,7 @@ public class DataHandler implements Runnable {
 
             Map<String, Object> source = new HashMap<>();
             source.putAll(RandomDataReader.getIpInfo());
+            mo.add(ES_CT, temp.substring(0, 1));
             source.forEach(mo::add);
             // 其它属性值数据设置
 
@@ -75,7 +79,7 @@ public class DataHandler implements Runnable {
      */
     private void initVisitorMap() {
         String accessIndex = getIndexInfo();
-        int[] ct = {0, 0, 0, 0, 1, 1, 1, 1, 0, 0};
+        int[] ct = {0, 0, 1, 1, 1, 1, 1, 1, 0, 0};
         int b = 0;
         for (int _index = 0; _index < CT_INIT_LENGTH; _index++, b++) {
             if (b % 10 == 0) {
@@ -83,14 +87,12 @@ public class DataHandler implements Runnable {
             }
             map.put(_index, ct[_index % 10] + "**" + accessIndex);
         }
-        System.out.println(accessIndex);
-        System.out.println(queue.size());
+//        System.out.println(accessIndex);
+        if (queue.size() % 10000 == 0)
+            System.out.println(queue.size());
     }
 
-    @Override
-    public void run() {
-
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUMBER);
+    private void run() {
         for (int i = 0; i < THREAD_NUMBER; i++) {
             executor.execute(() -> {
                 while (true) {
@@ -99,5 +101,10 @@ public class DataHandler implements Runnable {
             });
         }
 
+    }
+
+    public void shutdown() {
+        Objects.requireNonNull(executor);
+        executor.shutdown();
     }
 }

@@ -18,6 +18,7 @@ public interface Constants {
     String ES_CURR_ADDRESS = "loc";
     String ES_UNIX_TIME = "utime";
     String ES_OS = "os";
+    String ES_CT = "ct";
     String ES_T = "t";         // trackId
     String ES_TT = "tt";       // 访问次数标识符
     String ES_VID = "vid";     // 访客唯一标识符

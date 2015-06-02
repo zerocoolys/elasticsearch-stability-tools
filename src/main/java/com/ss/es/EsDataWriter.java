@@ -1,8 +1,11 @@
 package com.ss.es;
 
 import com.ss.core.Constants;
+import com.ss.core.DataHandler;
 import com.ss.core.MessageObject;
+import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -10,11 +13,11 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.ss.core.DataHandler.isEmpty;
-import static com.ss.core.DataHandler.take;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
@@ -24,19 +27,23 @@ public class EsDataWriter implements Constants {
 
     private final TransportClient client;
     private final List<String> indexes;
+    private final DataHandler handler;
+    private final ExecutorService executor;
 
-    public EsDataWriter(TransportClient client, List<String> indexes) {
+    public EsDataWriter(TransportClient client, List<String> indexes, DataHandler handler) {
         this.client = client;
         this.indexes = indexes;
+        this.handler = handler;
+        this.executor = Executors.newSingleThreadExecutor();
         write();
     }
 
     private void write() {
-        Executors.newSingleThreadExecutor().execute(() -> {
+        executor.execute(() -> {
             BulkRequestBuilder bulkRequestBuilder = client.prepareBulk();
             while (true) {
                 try {
-                    Optional<MessageObject> optional = Optional.of(take());
+                    Optional<MessageObject> optional = Optional.of(handler.take());
                     if (!optional.isPresent())
                         continue;
 
@@ -65,17 +72,42 @@ public class EsDataWriter implements Constants {
                 }
 
 
-                if (isEmpty() && bulkRequestBuilder.numberOfActions() > 0) {
-                    bulkRequestBuilder.get();
+                if (handler.queueIsEmpty() && bulkRequestBuilder.numberOfActions() > 0) {
+                    bulkRequestBuilder.execute().addListener(new ActionListener<BulkResponse>() {
+                        @Override
+                        public void onResponse(BulkResponse bulkItemResponses) {
+                            System.out.println(bulkItemResponses.buildFailureMessage());
+                        }
+
+                        @Override
+                        public void onFailure(Throwable e) {
+                            System.out.println(e.getMessage());
+                        }
+                    });
                     bulkRequestBuilder = client.prepareBulk();
                     continue;
                 }
 
                 if (bulkRequestBuilder.numberOfActions() == EsPools.getBulkRequestNumber()) {
-                    bulkRequestBuilder.get();
+                    bulkRequestBuilder.execute().addListener(new ActionListener<BulkResponse>() {
+                        @Override
+                        public void onResponse(BulkResponse bulkItemResponses) {
+                            System.out.println(bulkItemResponses.buildFailureMessage());
+                        }
+
+                        @Override
+                        public void onFailure(Throwable e) {
+                            System.out.println(e.getMessage());
+                        }
+                    });
                     bulkRequestBuilder = client.prepareBulk();
                 }
             }
         });
+    }
+
+    public void shutdown() {
+        Objects.requireNonNull(executor);
+        executor.shutdown();
     }
 }

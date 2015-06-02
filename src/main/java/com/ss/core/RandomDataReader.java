@@ -1,17 +1,11 @@
 package com.ss.core;
 
-import com.ss.tools.ArrayUtils;
-
-import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by dolphineor on 2015-5-28.
@@ -24,11 +18,11 @@ public class RandomDataReader implements Constants {
     private static List<String> ipLines = null;
 
     /**
-     * »ñÈ¡IPÐÅÏ¢
-     * ES_REMOTE£ºipµØÖ·
-     * ES_REGION£ºÊ¡
-     * ES_CITY£º³ÇÊÐ
-     * ES_ISP£ºÔËÓªÉÌ
+     * ï¿½ï¿½È¡IPï¿½ï¿½Ï¢
+     * ES_REMOTEï¿½ï¿½ipï¿½ï¿½Ö·
+     * ES_REGIONï¿½ï¿½Ê¡
+     * ES_CITYï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ES_ISPï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½
      *
      * @return
      */
@@ -56,7 +50,7 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * »ñÈ¡Ò³ÃæÒÔ¼°Í£ÁôÊ±¼ä
+     * ï¿½ï¿½È¡Ò³ï¿½ï¿½ï¿½Ô¼ï¿½Í£ï¿½ï¿½Ê±ï¿½ï¿½
      */
     public static Map<String, Object> getLocInfo(Object accessIndex) {
         Map<String, Object> map = new HashMap<>();
@@ -91,21 +85,21 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * »ñÈ¡rf_type
+     * ï¿½ï¿½È¡rf_type
      */
     public static Map<String, Object> getRfTypeInfo() {
         Map<String, Object> rf = new HashMap<>();
         int rfType = RANDOM.nextInt(3) + 1;
 
-        if (rfType == 1) {// Ö±½Ó·ÃÎÊ
+        if (rfType == 1) {// Ö±ï¿½Ó·ï¿½ï¿½ï¿½
             rf.put(ES_RF_TYPE, rfType);
-            rf.put(ES_RF, "--");
+            rf.put(ES_RF, "-");
             rf.put(ES_SE, "-");
-        } else if (rfType == 2) {// ËÑË÷ÒýÇæ
+        } else if (rfType == 2) {// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             rf.put(ES_RF_TYPE, rfType);
             rf.put(ES_SE, SEARCH_ENGINE_DATA.get(RANDOM.nextInt(SEARCH_ENGINE_DATA.size() - 1)));
             rf.put(ES_KW, SEARCH_KW_DATA.get(RANDOM.nextInt(SEARCH_KW_DATA.size() - 1)));
-        } else {// Íâ²¿Á´½Ó
+        } else {// ï¿½â²¿ï¿½ï¿½ï¿½ï¿½
             rf.put(ES_RF_TYPE, rfType);
             rf.put(ES_DOMAIN, ENTRANCE_PAGE.get(0));
             rf.put(ES_ENTRANCE, ENTRANCE_PAGE.get(0));
@@ -114,7 +108,7 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * »ñÈ¡²Ù×÷ÏµÍ³
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ÏµÍ³
      */
     public static Map<String, String> getOSInfo() {
         Map<String, String> os = new HashMap<>();
@@ -123,7 +117,7 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * »ñÈ¡·ÃÎÊÖÕ¶Ë
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½
      */
     public static Map<String, String> getPMInfo() {
         Map<String, String> map = new HashMap<>();
@@ -132,7 +126,7 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * »ñÈ¡_INDEX
+     * ï¿½ï¿½È¡_INDEX
      */
     public static String getIndexInfo() {
         return INDEX_VIEW.get(RANDOM.nextInt(INDEX_VIEW.size()));
