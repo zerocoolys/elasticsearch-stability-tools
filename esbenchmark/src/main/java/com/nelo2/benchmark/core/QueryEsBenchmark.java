@@ -11,7 +11,7 @@ import com.nelo2.benchmark.AbstractEsBenchmark;
 import com.nelo2.benchmark.utils.CommonUtils;
 
 public class QueryEsBenchmark extends AbstractEsBenchmark{
-	int QUERY_COUNT = 200;
+	
 	@Override
 	public String benchmark() {
 		StopWatch stopWatch = new StopWatch().start();
