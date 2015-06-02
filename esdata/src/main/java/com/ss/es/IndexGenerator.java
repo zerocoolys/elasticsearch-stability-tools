@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Created by dolphineor on 2015-6-2.
+ * <p>
+ * elasticsearch index 生成器
  */
 public class IndexGenerator {
     private static final String ES_VISITOR_INDEX_PREFIX = "visitor-";
@@ -14,9 +16,8 @@ public class IndexGenerator {
         List<String> indexes = new ArrayList<>();
         LocalDate ld = LocalDate.now();
 
-        for (int i = -endOffset; i < -startOffset + 1; i++) {
+        for (int i = -endOffset; i < -startOffset + 1; i++)
             indexes.add(ES_VISITOR_INDEX_PREFIX + ld.minusDays(i));
-        }
 
         return indexes;
     }

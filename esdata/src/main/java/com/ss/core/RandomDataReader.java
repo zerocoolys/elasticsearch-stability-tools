@@ -58,11 +58,11 @@ public class RandomDataReader implements Constants {
         int pageCount = RANDOM.nextInt(LOC_PAGE_MAX_LENGTH) + 1;
 
         Calendar c = Calendar.getInstance();
-        try {
-            c.setTime(SDF.parse(accessIndex.toString()));
-        } catch (ParseException e) {
-
-        }
+//        try {
+//            c.setTime(SDF.parse(accessIndex.toString()));
+//        } catch (ParseException e) {
+//
+//        }
         String[] locArray = new String[pageCount];
         String[] uTimeArray = new String[pageCount];
         int seed = RANDOM.nextInt(PAGE_VIEW.size() - LOC_PAGE_MAX_LENGTH + 1);
