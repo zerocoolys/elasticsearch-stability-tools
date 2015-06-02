@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-bulk=5000
-startOffset=-30
+bulk=50000
+startOffset=-1
 endOffset=-1
 
 while getopts "b:s:e:" arg
@@ -21,4 +21,4 @@ while getopts "b:s:e:" arg
         esac
     done
 
-java -cp .:./lib/*:./conf com.ss.ESDataGeneratorMain ${bulk} ${startOffset} ${endOffset}
+java -Xms2g -Xmx2g -cp .:./lib/*:./conf com.ss.EsDataGeneratorMain ${bulk} ${startOffset} ${endOffset}

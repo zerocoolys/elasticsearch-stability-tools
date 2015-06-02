@@ -14,7 +14,7 @@ public class MessageObject {
 
     {
         attribute.put("tt", UUID.randomUUID());
-        attribute.put("t", "2");
+        attribute.put("t", "1");
         attribute.put("fl", "17.0");// flash�汾��
         attribute.put("v", "1.0");
         attribute.put("ja", "1");// �Ƿ�֧��java 0.��֧��, 1.֧��
