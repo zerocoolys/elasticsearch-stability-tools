@@ -1,5 +1,7 @@
 package com.nelo2.benchmark.utils;
 
+import java.io.File;
+
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -14,9 +16,11 @@ public class CommonUtils {
 	private static Configuration  config ;
 	private static Client client;
 	private static Settings settings;
+	private static String doc_path; 
 	
 	static {
 		try {
+			doc_path = "."+File.separator+"doc"+File.separator;
 			config = new PropertiesConfiguration("config.properties");
 			client = new TransportClient(getSetting()).addTransportAddress(new InetSocketTransportAddress(CommonUtils.readProperties("ip"), CommonUtils.readPropertiesAsInt("port")));
 
@@ -34,9 +38,13 @@ public class CommonUtils {
 		  
 	}
 	
+	public static String getDoc_path() {
+		return doc_path;
+	}
 	public static Settings getSetting() {
-		 settings = ImmutableSettings.settingsBuilder().put("cluster.name", CommonUtils.readProperties("cluster.name")).build();
-         return settings;
+		 //settings = ImmutableSettings.settingsBuilder().put("cluster.name", CommonUtils.readProperties("cluster.name")).build();
+		 settings = ImmutableSettings.settingsBuilder().loadFromClasspath("benchmark.yml").build();	
+		 return settings;
 	}
 	
 	public static Client getClient() {
@@ -51,6 +59,7 @@ public class CommonUtils {
 		client.close();*/
 		
 		final Settings settings = ImmutableSettings.settingsBuilder().loadFromClasspath("benchmark.yml").build();
+		
 		System.out.println(settings);
 	}
 
