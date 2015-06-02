@@ -14,6 +14,8 @@ jvmmonitor.interval: 200
 
 indexs: ['nelo2-log-2013-05-09']
 
+accessIndex: access-2015-05-30
+
 ############################ data index benchmark config ############################
 index.enable: false
 index.bulk: true

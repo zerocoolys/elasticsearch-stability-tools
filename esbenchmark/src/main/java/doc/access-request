@@ -1,0 +1,31 @@
+{
+ 	"size": 0,
+      "aggs": {
+        "pv_uv": {
+          "terms": {"field": "_type"},
+          "aggs": {
+            "path0": {
+              "terms": {"field": "path0"},
+              "aggs": {
+                "path1": {
+                  "terms": {"field": "path1"},
+                  "aggs": {
+                    "path2": {
+                      "terms": {"field": "path2"},
+                      "aggs": {
+                        "pv": {"sum": {"script": "1"}},
+                        "uv": {"cardinality": {"field": "tt"}}
+                      }
+                    },
+                    "pv": {"sum": {"script": "1"}},
+                    "uv": {"cardinality": {"field": "tt"}}
+                  }
+                },
+                "pv": {"sum": {"script": "1"}},
+                "uv": {"cardinality": {"field": "tt"}}
+              }
+            }
+          }
+        }
+    }
+ }

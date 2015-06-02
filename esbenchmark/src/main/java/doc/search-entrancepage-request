@@ -1,0 +1,27 @@
+{
+    "query": {
+      "bool": {
+        "must": []
+      }
+    },
+    "size": 0,
+    "aggs": {
+      "result": {
+        "terms": {"script": "doc['loc'].value"},
+        "aggs": {
+          "pv_aggs": {
+            "sum": {"script": "c=0; c+=doc['loc'].values.size(); c"}
+          },
+          "uv_aggs": {
+            "cardinality": {"field": "_ucv"}
+          },
+          "tvt_aggs": {
+            "sum": {"script": "sum_time = 0; len = doc['utime'].values.size() - 1; if (len > 0) { sum_time = doc['utime'].values[len] - doc['utime'].values[0] }; sum_time"}
+          },
+          "vc_aggs": {
+            "sum": {"script": "1"}
+          }
+        }
+      }
+    }
+}

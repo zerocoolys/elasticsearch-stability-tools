@@ -6,6 +6,8 @@ package com.nelo2.benchmark;
  */
 public abstract class AbstractEsBenchmark {
 	
+	public int QUERY_COUNT = 10;
+	
 	public abstract String name();
 
 	public abstract String benchmark();
