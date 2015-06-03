@@ -43,7 +43,9 @@ public class CommonUtils {
 	}
 	public static Settings getSetting() {
 		 //settings = ImmutableSettings.settingsBuilder().put("cluster.name", CommonUtils.readProperties("cluster.name")).build();
-		 settings = ImmutableSettings.settingsBuilder().loadFromClasspath("benchmark.yml").build();	
+		if(settings==null){
+			settings = ImmutableSettings.settingsBuilder().loadFromClasspath("benchmark.yml").build();	
+		}
 		 return settings;
 	}
 	
