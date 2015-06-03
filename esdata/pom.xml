@@ -9,7 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ss</groupId>
     <artifactId>esdata</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -18,6 +17,7 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
+            <version>${es.version}</version>
         </dependency>
     </dependencies>
 

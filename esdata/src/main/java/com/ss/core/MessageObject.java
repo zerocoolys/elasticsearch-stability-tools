@@ -14,12 +14,12 @@ public class MessageObject {
 
     {
         attribute.put("tt", UUID.randomUUID());
-        attribute.put("t", "2");
-        attribute.put("fl", "17.0");// flash�汾��
+        attribute.put("t", "1");
+        attribute.put("fl", "17.0");// flash版本
         attribute.put("v", "1.0");
-        attribute.put("ja", "1");// �Ƿ�֧��java 0.��֧��, 1.֧��
-        attribute.put("ck", "1");// �Ƿ�֧��cookie 0.��֧��, 1.֧��
-        attribute.put("tit", "ddd");// ҳ��title�ı���Ϣ
+        attribute.put("ja", "1");// 是否支持java。0.支持1.不支持
+        attribute.put("ck", "1");// 是否支持cookie。0.支持1.不支持
+        attribute.put("tit", "ddd");// 页面title内容
         attribute.put("Accept-Language", "zh-CN,zh;q=0.8");
         attribute.put("lg", "zh-CN");
         attribute.put("sc", "24-bit");
