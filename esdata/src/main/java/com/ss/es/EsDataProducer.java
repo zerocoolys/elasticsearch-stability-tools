@@ -60,17 +60,14 @@ public class EsDataProducer implements Constants {
         source.forEach(mo::add);
         // 其它属性值数据设置
 
-        Map<String, Object> loc = new HashMap<>();
-        loc.putAll(RandomDataReader.getLocInfo(mo.get(ES_INDEX)));
-        loc.forEach(mo::add);
+        Map<String, Object> loc_uTime = new HashMap<>();
+        loc_uTime.putAll(RandomDataReader.getLocAndUTimeInfo(mo.get(ES_INDEX)));
+        loc_uTime.forEach(mo::add);
 
-        Map<String, String> os = new HashMap<>();
-        os.putAll(RandomDataReader.getOSInfo());
-        os.forEach(mo::add);
-
-        Map<String, String> pm = new HashMap<>();
-        pm.putAll(RandomDataReader.getPMInfo());
-        pm.forEach(mo::add);
+        // 操作系统以及设备终端
+        Map<String, String> os_pm = new HashMap<>();
+        os_pm.putAll(RandomDataReader.getOSAndPMInfo());
+        os_pm.forEach(mo::add);
 
         Map<String, Object> rfType = new HashMap<>();
         rfType.putAll(RandomDataReader.getRfTypeInfo());

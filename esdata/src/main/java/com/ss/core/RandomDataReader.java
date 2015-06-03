@@ -51,7 +51,7 @@ public class RandomDataReader implements Constants {
     /**
      * 获取loc以及utime信息
      */
-    public static Map<String, Object> getLocInfo(Object accessIndex) {
+    public static Map<String, Object> getLocAndUTimeInfo(Object accessIndex) {
         Map<String, Object> map = new HashMap<>();
 
         int pageCount = RANDOM.nextInt(LOC_PAGE_MAX_LENGTH) + 1;
@@ -84,45 +84,52 @@ public class RandomDataReader implements Constants {
     }
 
     /**
-     * 获取rf_type信息
+     * 获取rf_type相关信息
+     * rf.
+     * se.
      */
     public static Map<String, Object> getRfTypeInfo() {
         Map<String, Object> rf = new HashMap<>();
         int rfType = RANDOM.nextInt(3) + 1;
-
         if (rfType == 1) {// 直接访问
             rf.put(ES_RF_TYPE, rfType);
             rf.put(ES_RF, "-");
             rf.put(ES_SE, "-");
+            rf.put(ES_ENTRANCE, ENTRANCE_PAGE.get(0));
         } else if (rfType == 2) {// 搜索引擎
             rf.put(ES_RF_TYPE, rfType);
-            rf.put(ES_SE, SEARCH_ENGINE_DATA.get(RANDOM.nextInt(SEARCH_ENGINE_DATA.size() - 1)));
-            rf.put(ES_RF, rf.get(ES_SE));
-            rf.put(ES_KW, SEARCH_KW_DATA.get(RANDOM.nextInt(SEARCH_KW_DATA.size() - 1)));
+            int a = RANDOM.nextInt(SEARCH_ENGINE_DATA_LENGTH - 1);
+            rf.put(ES_SE, SEARCH_ENGINE_DATA.get(a));
+            int b = RANDOM.nextInt(SEARCH_KW_DATA_LENGTH - 1);
+            rf.put(ES_KW, SEARCH_KW_DATA.get(b));
+            rf.put(ES_RF, RF_SE_DATA.get("" + a + b));
         } else {// 外部链接
             rf.put(ES_RF_TYPE, rfType);
             rf.put(ES_DOMAIN, ENTRANCE_PAGE.get(0));
             rf.put(ES_ENTRANCE, ENTRANCE_PAGE.get(0));
+            rf.put(ES_RF, EXTERNAL_LINK_PAGE.get(RANDOM.nextInt(EXTERNAL_LINK_PAGE_LENGTH - 1)));
         }
         return rf;
     }
 
     /**
-     * 获取OS信息
+     * 获取OS以及PM信息
+     * os　操作系统
+     * pm　访问终端(0 PC,1 手机)
      */
-    public static Map<String, String> getOSInfo() {
-        Map<String, String> os = new HashMap<>();
-        os.put(ES_OS, OS_DATA.get(RANDOM.nextInt(OS_DATA.size() - 1)));
-        return os;
+    public static Map<String, String> getOSAndPMInfo() {
+        Map<String, String> os_pm_map = new HashMap<>();
+        os_pm_map.put(ES_PM, PM_DATA.get(RANDOM.nextInt(PM_DATA_LENGTH - 1)));
+        os_pm_map.put(ES_OS, getOSInfo(os_pm_map.get(ES_PM)));
+        return os_pm_map;
     }
 
-    /**
-     * 获取PM信息
-     */
-    public static Map<String, String> getPMInfo() {
-        Map<String, String> map = new HashMap<>();
-        map.put(ES_PM, PM_DATA.get(RANDOM.nextInt(PM_DATA.size() - 1)));
-        return map;
+    private static String getOSInfo(String pmType) {
+        if (pmType.equals("0")) {// PC
+            return OS_PC_DATA.get(RANDOM.nextInt(OS_PC_DATA_LENGTH - 1));
+        } else {
+            return OS_PHONE_DATA.get(RANDOM.nextInt(OS_PHONE_DATA_LENGTH - 1));
+        }
     }
 
     /**

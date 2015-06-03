@@ -23,12 +23,10 @@ public class MessageObject {
         attribute.put("Accept-Language", "zh-CN,zh;q=0.8");
         attribute.put("lg", "zh-CN");
         attribute.put("sc", "24-bit");
-        attribute.put("sr", "1920x1080");
         attribute.put("method", "GET");
         attribute.put("Accept", "*/*");
         attribute.put("Connection", "keep-alive");
         attribute.put("version", "HTTP/1.1");
-        attribute.put("sr", "1920x1080");
         attribute.put("sr", "1920x1080");
         attribute.put("accept-encoding", "gzip,deflate,sdch");
         attribute.put("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36");

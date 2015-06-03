@@ -28,7 +28,7 @@ public class DataHandler {
 
     public void init() {
         for (int i = 0; i < indexes.size(); i++) {
-            indexmap.put(indexes.get(i), ES_INDEX_START_COUNT + ES_INDEX_INCREMENT * i);
+            indexmap.put(indexes.get(i), ES_INDEX_BASE_COUNT + ES_INDEX_INCREMENT * i);
         }
     }
 
@@ -57,8 +57,8 @@ public class DataHandler {
      * 初始化数组
      */
     public void initVisitorMap() {
-//        System.out.println(Thread.currentThread().getName() + "。。开始创建访客数据");
-//        System.out.println(indexmap);
+        System.out.println(Thread.currentThread().getName() + "。。开始创建访客数据");
+        System.out.println(indexmap);
 //        System.out.println(indexes);
         String visitorIndex = indexes.get(0);
         for (int i = 0, _size = indexes.size(); i < _size; i++) {
