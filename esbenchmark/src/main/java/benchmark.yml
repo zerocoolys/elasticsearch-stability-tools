@@ -1,48 +1,31 @@
-debug: true
-
-query.count: 50
-warnup.count: 5
+DateHistogramRequest.indexs: ['visitor-2015-06-03']
+DateHistogramRequest.types: ['1']
 
 
-size: '2m'
-matchsize: false
-
-jvmmonitor.interval: 200
-
-cluster.name: es-cluster
-ip: 182.92.227.79
-port: 19300
+SearchEquipmentRequest.indexs: ['visitor-2015-06-03']
+SearchEquipmentRequest.types: ['1']
 
 
-
-DateHistogramRequest.indexs: ['visitor-2015-06-01']
-DateHistogramRequest.types: ['2']
-
-
-SearchEquipmentRequest.indexs: ['visitor-2015-06-01']
-SearchEquipmentRequest.types: ['2']
+Search30daysRequest.indexs: ['visitor-2015-06-03']
+Search30daysRequest.types: ['1']
 
 
-Search30daysRequest.indexs: ['visitor-2015-06-01']
-Search30daysRequest.types: ['2']
+SearchEntrancepageRequest.indexs: ['visitor-2015-06-03']
+SearchEntrancepageRequest.types: ['1']
 
 
-SearchEntrancepageRequest.indexs: ['visitor-2015-06-01']
-SearchEntrancepageRequest.types: ['2']
+SearchWordRequest.indexs: ['visitor-2015-06-03']
+SearchWordRequest.types: ['1']
 
 
-SearchWordRequest.indexs: ['visitor-2015-06-01']
-SearchWordRequest.types: ['2']
+SourceExternallinksRequest.indexs: ['visitor-2015-06-03']
+SourceExternallinksRequest.types: ['1']
 
 
-SourceExternallinksRequest.indexs: ['visitor-2015-06-01']
-SourceExternallinksRequest.types: ['2']
-
-
-VisitorEquipmentRequest.indexs: ['visitor-2015-06-01']
-VisitorEquipmentRequest.types: ['2']
+VisitorEquipmentRequest.indexs: ['visitor-2015-06-03']
+VisitorEquipmentRequest.types: ['1']
 
 
 
-AccessRequest.indexs: ['visitor-2015-06-01']
-AccessRequest.types: ['2']
+AccessRequest.indexs: ['visitor-2015-06-03']
+AccessRequest.types: ['1']
