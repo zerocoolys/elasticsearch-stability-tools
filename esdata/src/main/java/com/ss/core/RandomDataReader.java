@@ -1,5 +1,7 @@
 package com.ss.core;
 
+import com.ss.tools.ConcurrentDateUtil;
+
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,7 +15,6 @@ import java.util.*;
 public class RandomDataReader implements Constants {
 
     private final static Random RANDOM = new Random();
-    private final static SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     private final static URL IP_DATA_URL = ClassLoader.getSystemResource("ip.txt");
     private static List<String> ipLines = null;
 
@@ -56,11 +57,11 @@ public class RandomDataReader implements Constants {
         int pageCount = RANDOM.nextInt(LOC_PAGE_MAX_LENGTH) + 1;
 
         Calendar c = Calendar.getInstance();
-//        try {
-//            c.setTime(SDF.parse(accessIndex.toString()));
-//        } catch (ParseException e) {
-//
-//        }
+        try {
+            c.setTime(ConcurrentDateUtil.parse(accessIndex.toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String[] locArray = new String[pageCount];
         String[] uTimeArray = new String[pageCount];
         int seed = RANDOM.nextInt(PAGE_VIEW.size() - LOC_PAGE_MAX_LENGTH + 1);
@@ -96,6 +97,7 @@ public class RandomDataReader implements Constants {
         } else if (rfType == 2) {// 搜索引擎
             rf.put(ES_RF_TYPE, rfType);
             rf.put(ES_SE, SEARCH_ENGINE_DATA.get(RANDOM.nextInt(SEARCH_ENGINE_DATA.size() - 1)));
+            rf.put(ES_RF, rf.get(ES_SE));
             rf.put(ES_KW, SEARCH_KW_DATA.get(RANDOM.nextInt(SEARCH_KW_DATA.size() - 1)));
         } else {// 外部链接
             rf.put(ES_RF_TYPE, rfType);

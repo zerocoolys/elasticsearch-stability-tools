@@ -16,7 +16,7 @@ public class EsDataGeneratorMain {
 
     public static void main(String[] args) {
         int bulk = Integer.valueOf(args[0]);
-        EsPools.setBulkRequestNumber(bulk);
+//        EsPools.setBulkRequestNumber(bulk);
 
         int startOffset = Integer.valueOf(args[1]);
         int endOffset = Integer.valueOf(args[2]);
@@ -26,15 +26,15 @@ public class EsDataGeneratorMain {
         List<EsDataWriter> writers = new ArrayList<>();
 
         EsPools.getEsClient().forEach(client -> {
-            DataHandler handler = new DataHandler(bulk);
-            producers.add(new EsDataProducer(indexes, handler));
-            writers.add(new EsDataWriter(client, handler));
+            DataHandler handler = new DataHandler(bulk, indexes);
+            producers.add(new EsDataProducer(handler));
+//            writers.add(new EsDataWriter(client, handler));
         });
 
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             producers.forEach(EsDataProducer::shutdown);
-            writers.forEach(EsDataWriter::shutdown);
+//            writers.forEach(EsDataWriter::shutdown);
         }));
 
 
