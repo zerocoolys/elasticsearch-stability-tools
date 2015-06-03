@@ -8,22 +8,20 @@ import com.ss.core.RandomDataReader;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by hydm on 2015/6/1.
  */
 public class EsDataProducer implements Constants {
 
-    private static final int THREAD_NUMBER = 2;
-    private static final List<Integer> CT_LIST = new ArrayList<>(Arrays.asList(0, 1));
-
+    private static final int THREAD_NUMBER = 4;
 
     private final ExecutorService executor;
-    private List<String> indexes;
     private DataHandler handler;
+    private final ReentrantLock lock = new ReentrantLock();
 
-    public EsDataProducer(List<String> indexes, DataHandler handler) {
-        this.indexes = indexes;
+    public EsDataProducer(DataHandler handler) {
         this.handler = handler;
         this.executor = Executors.newFixedThreadPool(THREAD_NUMBER);
         produce();
@@ -40,36 +38,41 @@ public class EsDataProducer implements Constants {
     }
 
     public void create() {
-        if (handler.mapIsEmpty()) {
-            handler.initVisitorMap(RandomDataReader.getIndexInfo(indexes));
+        lock.lock();
+        String temp;
+        try {
+            if (handler.mapIsEmpty()) {
+                handler.initVisitorMap();
+            }
+            temp = handler.removeMap();
+        } finally {
+            lock.unlock();
         }
 
+//        System.out.println(Thread.currentThread().getName() + "--------" + temp);
+
         MessageObject mo = new MessageObject();
-        String temp = handler.removeMap();
-        mo.add(ES_INDEX, "visitor-2015-06-03");
-        mo.add(ES_CT, new Random().nextInt(1));
+        mo.add(ES_INDEX, temp.substring(11));
+        mo.add(ES_CT, temp.substring(0, 1));
 
         Map<String, Object> source = new HashMap<>();
         source.putAll(RandomDataReader.getIpInfo());
         source.forEach(mo::add);
         // 其它属性值数据设置
 
-        Map<String, Object> loc = new HashMap<>();
-        loc.putAll(RandomDataReader.getLocInfo(mo.get(ES_INDEX)));
-        loc.forEach(mo::add);
+        Map<String, Object> loc_uTime = new HashMap<>();
+        loc_uTime.putAll(RandomDataReader.getLocAndUTimeInfo(mo.get(ES_INDEX)));
+        loc_uTime.forEach(mo::add);
 
-        Map<String, String> os = new HashMap<>();
-        os.putAll(RandomDataReader.getOSInfo());
-        os.forEach(mo::add);
-
-        Map<String, String> pm = new HashMap<>();
-        pm.putAll(RandomDataReader.getPMInfo());
-        pm.forEach(mo::add);
+        // 操作系统以及设备终端
+        Map<String, String> os_pm = new HashMap<>();
+        os_pm.putAll(RandomDataReader.getOSAndPMInfo());
+        os_pm.forEach(mo::add);
 
         Map<String, Object> rfType = new HashMap<>();
         rfType.putAll(RandomDataReader.getRfTypeInfo());
         rfType.forEach(mo::add);
-        handler.offer(Thread.currentThread().getName(), mo);
+        handler.offer(mo);
     }
 
     public void shutdown() {
