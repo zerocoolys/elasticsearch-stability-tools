@@ -1,31 +1,38 @@
-DateHistogramRequest.indexs: ['visitor-2015-06-03']
+DateHistogramRequest.indexPrdfixName: 'visitor'
+DateHistogramRequest.indexCount: 1
 DateHistogramRequest.types: ['1']
 
 
-SearchEquipmentRequest.indexs: ['visitor-2015-06-03']
+SearchEquipmentRequest.indexPrdfixName: 'visitor'
+SearchEquipmentRequest.indexCount: 1
 SearchEquipmentRequest.types: ['1']
 
 
-Search30daysRequest.indexs: ['visitor-2015-06-03']
+Search30daysRequest.indexPrdfixName: 'visitor'
+Search30daysRequest.indexCount: 1
 Search30daysRequest.types: ['1']
 
 
-SearchEntrancepageRequest.indexs: ['visitor-2015-06-03']
+SearchEntrancepageRequest.indexPrdfixName: 'visitor'
+SearchEntrancepageRequest.indexCount: 1
 SearchEntrancepageRequest.types: ['1']
 
 
-SearchWordRequest.indexs: ['visitor-2015-06-03']
+SearchWordRequest.indexPrdfixName: 'visitor'
+SearchWordRequest.indexCount: 1
 SearchWordRequest.types: ['1']
 
 
-SourceExternallinksRequest.indexs: ['visitor-2015-06-03']
+SourceExternallinksRequest.indexPrdfixName: 'visitor'
+SourceExternallinksRequest.indexCount: 1
 SourceExternallinksRequest.types: ['1']
 
 
-VisitorEquipmentRequest.indexs: ['visitor-2015-06-03']
+VisitorEquipmentRequest.indexPrdfixName: 'visitor'
+VisitorEquipmentRequest.indexCount: 1
 VisitorEquipmentRequest.types: ['1']
 
 
-
-AccessRequest.indexs: ['visitor-2015-06-03']
-AccessRequest.types: ['1']
+AccessRequest.indexPrdfixName: 'access'
+AccessRequest.indexCount: 1
+AccessRequest.types: ['1','2']

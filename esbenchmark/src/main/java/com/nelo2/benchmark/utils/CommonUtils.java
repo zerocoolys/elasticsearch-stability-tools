@@ -25,10 +25,12 @@ public class CommonUtils {
 			client = new TransportClient(getSetting()).addTransportAddress(
 					new InetSocketTransportAddress(CommonUtils
 							.readProperties("ip"), CommonUtils
-							.readPropertiesAsInt("port"))).addTransportAddress(
-					new InetSocketTransportAddress(CommonUtils
-							.readProperties("ip2"), CommonUtils
 							.readPropertiesAsInt("port")));
+			
+//			.addTransportAddress(
+//					new InetSocketTransportAddress(CommonUtils
+//							.readProperties("ip2"), CommonUtils
+//							.readPropertiesAsInt("port")));
 
 		} catch (ConfigurationException e) {
 			e.printStackTrace();

@@ -12,18 +12,13 @@ public class SourceExternallinksEsBenchmark extends AbstractEsBenchmark {
 
 	@Override
 	public String benchmark() {
+		if(!settings()) {
+			return "";
+		}
 		StopWatch stopWatch = new StopWatch().start();
 		Client client = CommonUtils.getClient();
 
-		// 索引
-		String[] indexs = CommonUtils.getSetting().getAsArray(
-				this.name() + ".indexs");
-		// 类型
-		String[] types = CommonUtils.getSetting().getAsArray(
-				this.name() + ".types");
-		// 过滤
-		String source = TemplateFile.readFile(CommonUtils.getDoc_path()
-				+ this.name() + ".json");
+		
 
 		for (int j = 0; j < QUERY_COUNT; j++) {
 

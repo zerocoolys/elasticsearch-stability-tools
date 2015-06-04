@@ -5,25 +5,19 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.StopWatch;
 
 import com.nelo2.benchmark.AbstractEsBenchmark;
-import com.nelo2.benchmark.result.TemplateFile;
 import com.nelo2.benchmark.utils.CommonUtils;
 
 public class AccessEsBenchmark extends AbstractEsBenchmark {
 
 	@Override
 	public String benchmark() {
-		StopWatch stopWatch = new StopWatch().start();
-		Client client = CommonUtils.getClient();
+		if(!settings()) {
+			return "";
+		}
 
-		// 索引
-		String[] indexs = CommonUtils.getSetting().getAsArray(
-				this.name() + ".indexs");
-		// 类型
-		String[] types = CommonUtils.getSetting().getAsArray(
-				this.name() + ".types");
-		// 过滤
-		String source = TemplateFile.readFile(CommonUtils.getDoc_path()
-				+ this.name() + ".json");
+		StopWatch stopWatch = new StopWatch().start();
+		
+		Client client = CommonUtils.getClient();
 
 		for (int j = 0; j < QUERY_COUNT; j++) {
 
@@ -50,6 +44,11 @@ public class AccessEsBenchmark extends AbstractEsBenchmark {
 	@Override
 	public String name() {
 		return "AccessRequest";
+	}
+	
+	public static void main(String[] args) {
+		AccessEsBenchmark a = new AccessEsBenchmark();
+		a.benchmark();
 	}
 
 }
