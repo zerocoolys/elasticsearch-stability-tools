@@ -111,15 +111,19 @@ public interface Constants {
     /**
      * 新老访客数组初始化长度
      */
-    int CT_INIT_LENGTH = 10000;
+//    int CT_INIT_LENGTH = 10000;
+    int CT_INIT_LENGTH = 4000;
 
     /**
      * 最近index初始数量
      */
+//    long ES_INDEX_BASE_COUNT = 1000 * 1000;
     long ES_INDEX_BASE_COUNT = 1000 * 1000;
 
     /**
      * index增量
      */
-    long ES_INDEX_INCREMENT = 1000 * 1000 * 2;
+//    long ES_INDEX_INCREMENT = 1000 * 1000 * 2;
+    long ES_INDEX_INCREMENT = 0;
 }
+
