@@ -5,7 +5,6 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.StopWatch;
 
 import com.nelo2.benchmark.AbstractEsBenchmark;
-import com.nelo2.benchmark.result.TemplateFile;
 import com.nelo2.benchmark.utils.CommonUtils;
 
 public class SearchWordEsBenchmark extends AbstractEsBenchmark {

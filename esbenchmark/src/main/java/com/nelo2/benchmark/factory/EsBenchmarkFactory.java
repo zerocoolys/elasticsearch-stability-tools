@@ -18,8 +18,7 @@ public class EsBenchmarkFactory {
 	public static List<AbstractEsBenchmark> getEsBenchmarkTasks() {
 		List<AbstractEsBenchmark> tasks = new ArrayList<AbstractEsBenchmark>();
 
-		
-		AccessEsBenchmark accessEsBenchmark = new AccessEsBenchmark();
+		// AccessEsBenchmark accessEsBenchmark = new AccessEsBenchmark();
 		DateHistogramEsBenchmark dateHistogramEsBenchmark = new DateHistogramEsBenchmark();
 		Search30daysEsBenchmark search30daysEsBenchmark = new Search30daysEsBenchmark();
 		SearchEntrancepageEsBenchmark searchEntrancepageEsBenchmark = new SearchEntrancepageEsBenchmark();
@@ -28,8 +27,7 @@ public class EsBenchmarkFactory {
 		SourceExternallinksEsBenchmark sourceExternallinksEsBenchmark = new SourceExternallinksEsBenchmark();
 		VisitorEquipmentEsBenchmark visitorEquipmentEsBenchmark = new VisitorEquipmentEsBenchmark();
 
-		
-		tasks.add(accessEsBenchmark);
+		// tasks.add(accessEsBenchmark);
 		tasks.add(dateHistogramEsBenchmark);
 		tasks.add(search30daysEsBenchmark);
 		tasks.add(searchEntrancepageEsBenchmark);

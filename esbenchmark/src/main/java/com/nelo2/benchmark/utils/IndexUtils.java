@@ -17,10 +17,26 @@ public class IndexUtils {
 		indexNames = new String[count];
 		StringBuffer indexName = new StringBuffer(prdfixName);
 		for (int i = 0; i < count;) {
-			indexNames[i] = indexName.append("-").append(++i).toString();
+			
+			
+			indexNames[i] = indexName.append("-").append(format(2,++i)).toString();
 			indexName.delete(indexName.lastIndexOf("-"), indexName.length());
 		}
 
 		return indexNames;
+	}
+	
+    private static String format(int length, int number) {
+        String f = "%0" + length + "d";
+        return String.format(f, number);
+    }
+	
+
+	public static void main(String[] args) {
+		String[] test = calculateIndex("vic-2015-06",100);
+		
+		for(String s : test) {
+			System.out.println(s);
+		}
 	}
 }

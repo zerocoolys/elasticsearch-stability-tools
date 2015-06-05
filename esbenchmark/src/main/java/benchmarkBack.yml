@@ -1,0 +1,34 @@
+
+
+DateHistogramRequest.indexName: ['visitor']
+DateHistogramRequest.indexCount: 1
+DateHistogramRequest.types: ['1']
+
+
+SearchEquipmentRequest.indexs: ['visitor-2015-06-01']
+SearchEquipmentRequest.types: ['1']
+
+
+Search30daysRequest.indexs: ['visitor-2015-05-03','visitor-2015-05-04','visitor-2015-05-05','visitor-2015-05-06','visitor-2015-05-07','visitor-2015-05-08','visitor-2015-05-09','visitor-2015-05-10','visitor-2015-05-12','visitor-2015-05-13','visitor-2015-05-14','visitor-2015-05-15','visitor-2015-05-16','visitor-2015-05-17','visitor-2015-05-18','visitor-2015-05-19','visitor-2015-05-20','visitor-2015-05-21','visitor-2015-05-22','visitor-2015-05-23','visitor-2015-05-24','visitor-2015-05-25','visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01','visitor-2015-05-11']
+Search30daysRequest.types: ['1']
+
+
+SearchEntrancepageRequest.indexs: ['visitor-2015-05-03','visitor-2015-05-04','visitor-2015-05-05','visitor-2015-05-06','visitor-2015-05-07','visitor-2015-05-08','visitor-2015-05-09','visitor-2015-05-10','visitor-2015-05-12','visitor-2015-05-13','visitor-2015-05-14','visitor-2015-05-15','visitor-2015-05-16','visitor-2015-05-17','visitor-2015-05-18','visitor-2015-05-19','visitor-2015-05-20','visitor-2015-05-21','visitor-2015-05-22','visitor-2015-05-23','visitor-2015-05-24','visitor-2015-05-25','visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01','visitor-2015-05-11']
+SearchEntrancepageRequest.types: ['1']
+
+
+SearchWordRequest.indexs: ['visitor-2015-05-03','visitor-2015-05-04','visitor-2015-05-05','visitor-2015-05-06','visitor-2015-05-07','visitor-2015-05-08','visitor-2015-05-09','visitor-2015-05-10','visitor-2015-05-12','visitor-2015-05-13','visitor-2015-05-14','visitor-2015-05-15','visitor-2015-05-16','visitor-2015-05-17','visitor-2015-05-18','visitor-2015-05-19','visitor-2015-05-20','visitor-2015-05-21','visitor-2015-05-22','visitor-2015-05-23','visitor-2015-05-24','visitor-2015-05-25','visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01','visitor-2015-05-11']
+SearchWordRequest.types: ['1']
+
+
+SourceExternallinksRequest.indexs: ['visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01']
+SourceExternallinksRequest.types: ['1']
+
+
+VisitorEquipmentRequest.indexs: ['visitor-2015-05-03','visitor-2015-05-04','visitor-2015-05-05','visitor-2015-05-06','visitor-2015-05-07','visitor-2015-05-08','visitor-2015-05-09','visitor-2015-05-10','visitor-2015-05-12','visitor-2015-05-13','visitor-2015-05-14','visitor-2015-05-15','visitor-2015-05-16','visitor-2015-05-17','visitor-2015-05-18','visitor-2015-05-19','visitor-2015-05-20','visitor-2015-05-21','visitor-2015-05-22','visitor-2015-05-23','visitor-2015-05-24','visitor-2015-05-25','visitor-2015-05-26','visitor-2015-05-27','visitor-2015-05-28','visitor-2015-05-29','visitor-2015-05-30','visitor-2015-05-31','visitor-2015-06-01','visitor-2015-05-11']
+VisitorEquipmentRequest.types: ['1']
+
+
+
+AccessRequest.indexs: ['access-2015-05-30']
+AccessRequest.types: ['1','2']
