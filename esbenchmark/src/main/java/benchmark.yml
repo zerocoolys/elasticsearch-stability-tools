@@ -1,38 +1,42 @@
+
+cluster.name: huiyan_prod
+
+
 DateHistogramRequest.indexPrdfixName: 'visitor-2015-06'
-DateHistogramRequest.indexCount: 1
+DateHistogramRequest.indexCount: 14
 DateHistogramRequest.types: ['1']
 
 
 SearchEquipmentRequest.indexPrdfixName: 'visitor-2015-06'
-SearchEquipmentRequest.indexCount: 1
+SearchEquipmentRequest.indexCount: 14
 SearchEquipmentRequest.types: ['1']
 
 
 Search30daysRequest.indexPrdfixName: 'visitor-2015-06'
-Search30daysRequest.indexCount: 1
+Search30daysRequest.indexCount: 14
 Search30daysRequest.types: ['1']
 
 
 SearchEntrancepageRequest.indexPrdfixName: 'visitor-2015-06'
-SearchEntrancepageRequest.indexCount: 1
+SearchEntrancepageRequest.indexCount: 14
 SearchEntrancepageRequest.types: ['1']
 
 
 SearchWordRequest.indexPrdfixName: 'visitor-2015-06'
-SearchWordRequest.indexCount: 1
+SearchWordRequest.indexCount: 14
 SearchWordRequest.types: ['1']
 
 
 SourceExternallinksRequest.indexPrdfixName: 'visitor-2015-06'
-SourceExternallinksRequest.indexCount: 1
+SourceExternallinksRequest.indexCount: 14
 SourceExternallinksRequest.types: ['1']
 
 
-visitorEquipmentRequest.indexPrdfixName: 'visitor-2015-06'
-visitorEquipmentRequest.indexCount: 1
-visitorEquipmentRequest.types: ['1']
+VisitorEquipmentRequest.indexPrdfixName: 'visitor-2015-06'
+VisitorEquipmentRequest.indexCount: 14
+VisitorEquipmentRequest.types: ['1']
 
 
 AccessRequest.indexPrdfixName: 'access-2015-06'
-AccessRequest.indexCount: 1
+AccessRequest.indexCount: 14
 AccessRequest.types: ['1','2']

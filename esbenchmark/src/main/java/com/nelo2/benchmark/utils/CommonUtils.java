@@ -1,6 +1,7 @@
 package com.nelo2.benchmark.utils;
 
 import java.io.File;
+import java.math.BigDecimal;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -66,6 +67,14 @@ public class CommonUtils {
 		// InetSocketTransportAddress(CommonUtils.readProperties("ip"),
 		// CommonUtils.readPropertiesAsInt("port")));
 		return client;
+	}
+	
+	
+	public static Double calculateTPS(Long totalTime,int queryCount) {
+		BigDecimal total = new BigDecimal(totalTime);
+		double result = total.divide(new BigDecimal(queryCount)).doubleValue();
+	
+		return result;
 	}
 
 	public static void main(String[] args) {

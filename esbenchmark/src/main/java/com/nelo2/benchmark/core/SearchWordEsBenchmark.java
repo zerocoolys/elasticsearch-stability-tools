@@ -11,7 +11,7 @@ public class SearchWordEsBenchmark extends AbstractEsBenchmark {
 
 	@Override
 	public String benchmark() {
-		if(!settings()) {
+		if (!settings()) {
 			return "";
 		}
 		StopWatch stopWatch = new StopWatch().start();
@@ -26,17 +26,22 @@ public class SearchWordEsBenchmark extends AbstractEsBenchmark {
 
 			request.source(source);
 			client.search(request).actionGet();
+			System.out.print(" The completed progress");
+			if (j % 10 == 0) {
+				System.out.print(String.format(",%d", j));
+			}
 
 		}
 
 		stopWatch.stop().lastTaskTime();
-		System.out.println("Indexing took " + stopWatch.totalTime() + ", TPS "
-				+ (stopWatch.totalTime().secondsFrac())
-				/ ((double) (QUERY_COUNT)));
+		double result = CommonUtils.calculateTPS(stopWatch.totalTime()
+				.getMillis(), QUERY_COUNT);
+
+		System.out.println(".   " + name() + "  Indexing took " + stopWatch.totalTime() + ", TPS "
+				+ result);
 
 		return praseHtml(source, QUERY_COUNT, stopWatch.totalTime().toString(),
-				(stopWatch.totalTime().secondsFrac())
-						/ ((double) (QUERY_COUNT)));
+				result);
 	}
 
 	@Override

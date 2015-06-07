@@ -1,5 +1,6 @@
 package com.nelo2.benchmark.core;
 
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.StopWatch;
@@ -32,13 +33,15 @@ public class AccessEsBenchmark extends AbstractEsBenchmark {
 		}
 
 		stopWatch.stop().lastTaskTime();
+		
+		double result = CommonUtils.calculateTPS(stopWatch.totalTime()
+				.getMillis(), QUERY_COUNT);
+
 		System.out.println("Indexing took " + stopWatch.totalTime() + ", TPS "
-				+ (stopWatch.totalTime().secondsFrac())
-				/ ((double) (QUERY_COUNT)));
+				+ result);
 
 		return praseHtml(source, QUERY_COUNT, stopWatch.totalTime().toString(),
-				(stopWatch.totalTime().secondsFrac())
-						/ ((double) (QUERY_COUNT)));
+				result);
 	}
 
 	@Override
