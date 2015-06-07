@@ -20,10 +20,11 @@ public class EsDataGeneratorMain {
 
 //        int startOffset = Integer.valueOf(args[1]);
 //        int endOffset = Integer.valueOf(args[2]);
-//        List<String> indexes = IndexGenerator.createIndexes(startOffset, endOffset);
+//        List<String> indexes = IndexGenerator.createMonthIndexes(startOffset, endOffset);
 
-        int size = Integer.valueOf(args[1]);
-        List<String> indexes = IndexGenerator.createIndexes(size);
+        int start = Integer.valueOf(args[1]);
+        int size = Integer.valueOf(args[2]);
+        List<String> indexes = IndexGenerator.createSizeIndexes(start, size);
 
         List<EsDataProducer> producers = new ArrayList<>();
         List<EsDataWriter> writers = new ArrayList<>();
