@@ -1,11 +1,12 @@
 package com.nelo2.benchmark.core;
 
 
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.common.StopWatch;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import com.nelo2.benchmark.AbstractEsBenchmark;
+import com.nelo2.benchmark.result.DSLStats;
 import com.nelo2.benchmark.utils.CommonUtils;
 
 public class AccessEsBenchmark extends AbstractEsBenchmark {
@@ -16,32 +17,13 @@ public class AccessEsBenchmark extends AbstractEsBenchmark {
 			return "";
 		}
 
-		StopWatch stopWatch = new StopWatch().start();
+		List<DSLStats> listDSL = new ArrayList<DSLStats>();
 		
-		Client client = CommonUtils.getClient();
-
-		for (int j = 0; j < QUERY_COUNT; j++) {
-
-			client.admin().indices().prepareClearCache()
-					.setFieldDataCache(true).execute().actionGet();
-			SearchRequest request = client.prepareSearch(indexs)
-					.setTypes(types).request();
-
-			request.source(source);
-			client.search(request).actionGet();
-
-		}
-
-		stopWatch.stop().lastTaskTime();
+		listDSL.add(CommonUtils.exceuteSearch(QUERY_COUNT, name(), CommonUtils.getClient(), indexs, types, source));
 		
-		double result = CommonUtils.calculateTPS(stopWatch.totalTime()
-				.getMillis(), QUERY_COUNT);
+		listDSL.add(CommonUtils.exceuteAfterSettingSearch(QUERY_COUNT, name(), CommonUtils.getClient(), indexs, types, source));
 
-		System.out.println("Indexing took " + stopWatch.totalTime() + ", TPS "
-				+ result);
-
-		return praseHtml(source, QUERY_COUNT, stopWatch.totalTime().toString(),
-				result);
+		return praseHtml(listDSL);
 	}
 
 	@Override
