@@ -58,8 +58,8 @@ public class EsPools {
 
                 Settings settings = ImmutableSettings.settingsBuilder().put(esMap)
                         .put("cluster.name", clusterName)
-                        .put("client.transport.sniff", true)
-                        .put("client.transport.ignore_cluster_name", false)
+                        .put("client.transport.sniff", false)
+                        .put("client.transport.ignore_cluster_name", true)
                         .put("client.transport.ping_timeout", "10s")
                         .put("client.transport.nodes_sampler_interval", "15s").build();
                 TransportClient client = new TransportClient(settings);

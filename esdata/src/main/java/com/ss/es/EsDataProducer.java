@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class EsDataProducer implements Constants {
 
-    private static final int THREAD_NUMBER = 4;
+    private static final int THREAD_NUMBER = 1;
 
     private final ExecutorService executor;
     private DataHandler handler;
@@ -45,6 +45,10 @@ public class EsDataProducer implements Constants {
                 handler.initVisitorMap();
             }
             temp = handler.removeMap();
+
+            if (temp == null) {
+                return;
+            }
         } finally {
             lock.unlock();
         }
@@ -52,7 +56,7 @@ public class EsDataProducer implements Constants {
 //        System.out.println(Thread.currentThread().getName() + "--------" + temp);
 
         MessageObject mo = new MessageObject();
-        mo.add(ES_INDEX, temp.substring(11));
+        mo.add(ES_INDEX, temp.substring(3));
         mo.add(ES_CT, temp.substring(0, 1));
 
         Map<String, Object> source = new HashMap<>();
@@ -61,7 +65,7 @@ public class EsDataProducer implements Constants {
         // 其它属性值数据设置
 
         Map<String, Object> loc_uTime = new HashMap<>();
-        loc_uTime.putAll(RandomDataReader.getLocAndUTimeInfo(mo.get(ES_INDEX)));
+        loc_uTime.putAll(RandomDataReader.getLocAndUTimeInfo(temp.substring(11)));
         loc_uTime.forEach(mo::add);
 
         // 操作系统以及设备终端
@@ -72,7 +76,11 @@ public class EsDataProducer implements Constants {
         Map<String, Object> rfType = new HashMap<>();
         rfType.putAll(RandomDataReader.getRfTypeInfo());
         rfType.forEach(mo::add);
-        handler.offer(mo);
+        try {
+            handler.offer(mo);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void shutdown() {
