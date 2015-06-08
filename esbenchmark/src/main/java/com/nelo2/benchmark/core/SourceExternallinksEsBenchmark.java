@@ -19,7 +19,7 @@ public class SourceExternallinksEsBenchmark extends AbstractEsBenchmark {
 		
 		listDSL.add(CommonUtils.exceuteSearch(QUERY_COUNT, name(), CommonUtils.getClient(), indexs, types, source));
 		
-		listDSL.add(CommonUtils.exceuteAfterSettingSearch(QUERY_COUNT, name(), CommonUtils.getClient(), indexs, types, source));
+		listDSL.add(CommonUtils.exceuteAfterSettingSearch(QUERY_COUNT, name(), CommonUtils.getAfterSettingClient(), indexs, types, source));
 
 		return praseHtml(listDSL);
 	}
